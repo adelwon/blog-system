@@ -2,11 +2,47 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Carbon;
 
+/**
+ * App\Models\Post
+ *
+ * @property int $id
+ * @property int $category_id
+ * @property string $title
+ * @property string $short_description
+ * @property string $text
+ * @property string $image
+ * @property int $hidden
+ * @property string $path
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection|Category[] $categories
+ * @property-read int|null $categories_count
+ * @property-read Category|null $category
+ * @property-read Collection|Tag[] $tags
+ * @property-read int|null $tags_count
+ * @method static Builder|Post newModelQuery()
+ * @method static Builder|Post newQuery()
+ * @method static Builder|Post query()
+ * @method static Builder|Post whereCreatedAt($value)
+ * @method static Builder|Post whereHidden($value)
+ * @method static Builder|Post whereId($value)
+ * @method static Builder|Post whereImage($value)
+ * @method static Builder|Post whereCategoryId($value)
+ * @method static Builder|Post wherePath($value)
+ * @method static Builder|Post whereShortDescription($value)
+ * @method static Builder|Post whereText($value)
+ * @method static Builder|Post whereTitle($value)
+ * @method static Builder|Post whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Post extends Model
 {
     use HasFactory;
@@ -14,11 +50,6 @@ class Post extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
-    }
-
-    public function categories(): BelongsToMany
-    {
-        return $this->belongsToMany(Category::class, 'post_categories', 'post_id', 'category_id');
     }
 
     public function tags(): BelongsToMany

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Category\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +20,16 @@ Route::group(['namespace' => 'App\Http\Controllers\Blog'], function () {
 
 Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin'], function () {
     Route::group(['namespace' => 'Main'], function () {
-        Route::get('/', 'IndexController');
+        Route::get('/', 'IndexController')->name('home');
+    });
+
+    Route::group(['namespace' => 'Category', 'prefix' => 'categories'], function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('showCategories');
+        Route::get('/create', [CategoryController::class, 'create'])->name('createCategory');
+        Route::post('/store', [CategoryController::class, 'store'])->name('storeCategory');
+        Route::get('/{category}/edit', [CategoryController::class, 'edit'])->name('editCategory');
+        Route::put('/{category}', [CategoryController::class, 'update'])->name('updateCategory');
+        Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroyCategory');
     });
 });
 
