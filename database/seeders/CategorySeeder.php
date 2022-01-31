@@ -67,7 +67,7 @@ class CategorySeeder extends Seeder
                 'name' => 'Events',
                 'parent_id' => null,
                 'hidden' => '1',
-                'path' => 'tutorial'
+                'path' => 'events'
             ],
             [
                 'name' => 'Meetups',

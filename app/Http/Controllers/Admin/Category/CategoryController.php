@@ -39,7 +39,7 @@ class CategoryController extends Controller
         $category->path = $categoryDto->path;
         $category->save();
 
-        return redirect(route('showCategories'))->with('success', trans('messages.category.successfully_added'));
+        return redirect(route('showCategories'))->with('success', trans('messages.general.add'));
     }
 
     public function show(Category $category): View
@@ -61,7 +61,7 @@ class CategoryController extends Controller
         $category->path = $categoryDto->path;
         $category->save();
 
-        return redirect(route('showCategories'))->with('success', trans('messages.category.successfully_updated'));
+        return redirect(route('showCategories'))->with('success', trans('messages.general.update'));
     }
 
     public function destroy(Category $category): RedirectResponse
@@ -76,6 +76,6 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return redirect(route('showCategories'))->with('success', trans('messages.category.successfully_delete'));
+        return redirect(route('showCategories'))->with('success', trans('messages.general.delete'));
     }
 }

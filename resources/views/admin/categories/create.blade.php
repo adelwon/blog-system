@@ -12,13 +12,10 @@
                     </ul>
                 </div>
         @endif
-        <!-- general form elements -->
             <div class="card card-primary">
                 <div class="card-header">
                     <h3 class="card-title">Create category</h3>
                 </div>
-                <!-- /.card-header -->
-                <!-- form start -->
                 <form action="{{route('storeCategory')}}" method="post" enctype="multipart/form-data"
                       class="needs-validation" novalidate>
                     @csrf
@@ -35,7 +32,9 @@
                             <select class="form-control form-select" name="parent_id">
                                 <option selected  value="">Select the main category</option>
                                 @foreach($categories as $category)
+                                    @if($category['hidden'] === true)
                                     <option value="{{$category['id']}}">{{$category['name']}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
@@ -46,41 +45,39 @@
                                 <option value="0">No</option>
                             </select>
                             <div class="invalid-feedback">
-                                Please select a valid hidden.
+                                Please select a status for the post.
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="path">Transliteration</label>
-                            <input type="text" class="form-control box2" id="path" name="path"
-                                   placeholder="Enter transliteration category" required>
-                            <div class="invalid-feedback">
-                                Please enter a transliteration name.
+                            <label>URL slug</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="path" name="path"
+                                       placeholder="Enter URL slug for post"
+                                       required>
+                                <button class="btn btn-warning" type="button" onClick="myFunction()">Convert
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <!-- /.card-body -->
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
-                <!-- /form -->
             </div>
-            <!-- /.card -->
         </div>
     </section>
 @endsection
 
 @section('js')
     <script>
-        $(document).ready(function () {
+        function myFunction() {
 
-            function onchange() {
-                var box1 = $('#name');
-                var box2 = $('#path');
-                box2.val(box1.val());
-            }
+            var a = document.getElementById("name").value;
 
-            $('#name').on('change', onchange);
-        });
+            var b = a.toLowerCase().replace(/ /g, '-')
+                .replace(/[^\w-]+/g, '');
+
+            document.getElementById("path").value = b;
+        }
     </script>
 @endsection

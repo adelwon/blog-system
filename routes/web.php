@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\Category\CategoryController;
+use App\Http\Controllers\Admin\Post\PostController;
+use App\Http\Controllers\Admin\Tag\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +32,25 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin'],
         Route::get('/{category}/edit', [CategoryController::class, 'edit'])->name('editCategory');
         Route::put('/{category}', [CategoryController::class, 'update'])->name('updateCategory');
         Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroyCategory');
+    });
+
+    Route::group(['namespace' => 'Post', 'prefix' => 'posts'], function () {
+        Route::get('/', [PostController::class, 'index'])->name('showPosts');
+        Route::get('/create', [PostController::class, 'create'])->name('createPost');
+        Route::post('/store', [PostController::class, 'store'])->name('storePost');
+        Route::get('/{slug}', [PostController::class, 'show'])->name('showPost');
+        Route::get('/{post}/edit', [PostController::class, 'edit'])->name('editPost');
+        Route::put('/{post}', [PostController::class, 'update'])->name('updatePost');
+        Route::delete('/{post}', [PostController::class, 'destroy'])->name('destroyPost');
+    });
+
+    Route::group(['namespace' => 'Tag', 'prefix' => 'tags'], function () {
+        Route::get('/', [TagController::class, 'index'])->name('showTags');
+        Route::get('/create', [TagController::class, 'create'])->name('createTag');
+        Route::post('/store', [TagController::class, 'store'])->name('storeTag');
+        Route::get('/{tag}/edit', [TagController::class, 'edit'])->name('editTag');
+        Route::put('/{tag}', [TagController::class, 'update'])->name('updateTag');
+        Route::delete('/{tag}', [TagController::class, 'destroy'])->name('destroyTag');
     });
 });
 

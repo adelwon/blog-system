@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
@@ -19,8 +20,8 @@ use Illuminate\Support\Carbon;
  * @property int $hidden
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection|Post[] $users
- * @property-read int|null $users_count
+ * @property-read Collection|Post[] $posts
+ * @property-read int|null $posts_count
  * @method static Builder|Tag newModelQuery()
  * @method static Builder|Tag newQuery()
  * @method static Builder|Tag query()
@@ -34,8 +35,18 @@ use Illuminate\Support\Carbon;
 class Tag extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
-    public function users(): BelongsToMany
+    protected $fillable = [
+        'name',
+        'hidden'
+    ];
+
+    protected $casts = [
+        'hidden' => 'bool',
+    ];
+
+    public function posts(): BelongsToMany
     {
         return $this->belongsToMany(Post::class);
     }
