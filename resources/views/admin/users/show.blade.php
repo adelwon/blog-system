@@ -7,6 +7,7 @@
                 <div class="card-header">
                     <h6><strong>Full name: </strong>{{ $user->name }}</h6>
                     <h6><strong>E-mail: </strong>{{ $user->email }}</h6>
+                    <h6><strong>Role: </strong>{{ $user->role }}</h6>
                 </div>
                 <div class="card-footer">
                     <form method="post" action="{{ route('destroyUser', $user) }}">

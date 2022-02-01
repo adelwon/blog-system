@@ -6,12 +6,12 @@ namespace App\Models;
 
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * App\Models\User
@@ -21,11 +21,10 @@ use Illuminate\Support\Carbon;
  * @property string $email
  * @property string|null $email_verified_at
  * @property string $password
+ * @property int $role
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection|Role[] $roles
- * @property-read int|null $roles_count
  * @method static UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
@@ -42,11 +41,48 @@ use Illuminate\Support\Carbon;
  */
 class User extends Model
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
     use SoftDeletes;
 
-    public function roles(): BelongsToMany
+    public const SUPER_ADMIN_ROLE = 0;
+    public const AUTHOR_ROLE = 1;
+
+    public static function getRoles()
     {
-        return $this->belongsToMany(Role::class, 'role_users', 'user_id', 'role_id');
+        return [
+            self::SUPER_ADMIN_ROLE => 'Admin',
+            self::AUTHOR_ROLE => 'Author'
+        ];
     }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'role'
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 }

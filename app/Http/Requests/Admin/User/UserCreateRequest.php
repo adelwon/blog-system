@@ -24,6 +24,10 @@ class UserCreateRequest extends FormRequest
                 'required',
                 'string',
                 'min:6'
+            ],
+            'role' => [
+                'required',
+                'integer'
             ]
         ];
     }
@@ -34,6 +38,7 @@ class UserCreateRequest extends FormRequest
             $this->get('name'),
             $this->get('email'),
             $this->get('password'),
+            $this->get('role'),
         );
     }
 }

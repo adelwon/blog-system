@@ -17,7 +17,7 @@
                     <h3 class="card-title">Create user</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('updateUser', $user)}}" method="post" enctype="multipart/form-data"
+                    <form action="{{ route('updateUser', $user) }}" method="post" enctype="multipart/form-data"
                           class="needs-validation" novalidate>
                         @csrf
                         @method('PUT')
@@ -37,9 +37,20 @@
                                 Please enter a valid email address.
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="role">Role</label>
+                            <select class="form-select form-control" name="role" required>
+                                @foreach( $roles as $id => $role )
+                                    <option value="{{ $id }}" {{ $id === $user->role ? 'selected' : '' }}>{{ $role }}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a role.
+                            </div>
+                        </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <a href="{{route('showUsers')}}" class="btn btn-danger">Don't change</a>
+                            <a href="{{ route('showUsers') }}" class="btn btn-danger">Don't change</a>
                         </div>
                     </form>
                 </div>

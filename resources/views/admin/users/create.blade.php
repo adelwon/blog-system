@@ -37,6 +37,18 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="role">Role</label>
+                            <select class="form-select form-control" name="role" required>
+                                <option value="" selected>Choose a password for the user</option>
+                                @foreach($roles as $id => $role)
+                                    <option value="{{$id}}">{{$role}}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a role.
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" name="password" id="password"
                                    required>

@@ -25,6 +25,7 @@
                             <table class="table table-hover text-nowrap mb-2">
                                 <thead>
                                 <tr>
+                                    <td>#</td>
                                     <th>Full name</th>
                                     <th>E-mail</th>
                                     <th>Role</th>
@@ -34,15 +35,16 @@
                                 <tbody>
                                 @foreach($users as $user)
                                     <tr>
-                                        <td>{{$user->name}}</td>
-                                        <td>{{$user->email}}</td>
-                                        <td>Author</td>
-                                        <td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->role }}</td>
+                                        <td class="text-end">
                                             <div class="btn-group">
-                                                <form method="post" action="{{route('destroyUser', $user)}}">
-                                                    <a href="{{route('showUser', $user)}}" class="btn btn-default">
+                                                <form method="post" action="{{route('destroyUser', $user) }}">
+                                                    <a href="{{ route('showUser', $user) }}" class="btn btn-default">
                                                         <i class="far fa-eye"></i></a>
-                                                    <a href="{{route('editUser', $user)}}" class="btn btn-default">
+                                                    <a href="{{ route('editUser', $user) }}" class="btn btn-default">
                                                         <i class="far fa-edit"></i>
                                                     </a>
                                                     @csrf
@@ -57,7 +59,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            {{$users->links()}}
+                            {{ $users->links() }}
                         </div>
                     </div>
                 </div>

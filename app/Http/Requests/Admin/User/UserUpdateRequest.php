@@ -24,6 +24,10 @@ class UserUpdateRequest extends FormRequest
                 'required',
                 Rule::unique('users')->ignore($this->user),
                 'string'
+            ],
+            'role' => [
+                'required',
+                'integer'
             ]
         ];
     }
@@ -34,6 +38,7 @@ class UserUpdateRequest extends FormRequest
             $this->get('name'),
             $this->get('email'),
             $this->get('password'),
+            $this->get('role')
         );
     }
 }

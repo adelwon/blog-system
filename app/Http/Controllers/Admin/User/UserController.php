@@ -25,9 +25,7 @@ class UserController extends Controller
 
     public function create(): View
     {
-        $users = User::all();
-
-        return view('admin.users.create', compact('users'));
+        return view('admin.users.create', ['roles' => User::getRoles()]);
     }
 
     public function store(UserCreateRequest $userRequest): Redirector|Application|RedirectResponse
@@ -37,6 +35,7 @@ class UserController extends Controller
         $user->name = $userDto->name;
         $user->email = $userDto->email;
         $user->password = Hash::make($userDto->password);
+        $user->role = $userDto->role;
         $user->save();
 
         return redirect(route('showUsers'))->with('success', trans('messages.general.add'));
@@ -49,7 +48,7 @@ class UserController extends Controller
 
     public function edit(User $user): View
     {
-        return view('admin.users.edit', compact('user'));
+        return view('admin.users.edit', ['roles' => User::getRoles()], compact('user'));
     }
 
     public function update(User $user, UserUpdateRequest $userRequest): RedirectResponse
@@ -57,6 +56,7 @@ class UserController extends Controller
         $userDto = $userRequest->getUserDTO();
         $user->name = $userDto->name;
         $user->email = $userDto->email;
+        $user->role = $userDto->role;
         $user->save();
 
         return redirect(route('showUsers'))->with('success', trans('messages.general.update'));

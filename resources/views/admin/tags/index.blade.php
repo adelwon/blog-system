@@ -24,7 +24,7 @@
                         <table class="table table-hover text-nowrap mb-2">
                             <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>#</th>
                                 <th>Name</th>
                                 <th>Public</th>
                                 <th></th>
@@ -33,20 +33,20 @@
                             <tbody>
                             @foreach($tags as $tag)
                                 <tr>
-                                    <td>{{$tag['id']}}</td>
-                                    <td>{{$tag['name']}}</td>
-                                    <td>{{empty($tag['hidden']) ? 'No' : 'Yes'}}</td>
-                                    <td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $tag['name'] }}</td>
+                                    <td>{{ empty($tag['hidden']) ? 'No' : 'Yes' }}</td>
+                                    <td class="text-end">
                                         <div class="btn-group">
-                                            <form method="post" action="{{route('destroyTag', $tag)}}">
-                                                <a href="{{route('editTag', $tag)}}" class="btn btn-default">
+                                            <form method="post" action="{{ route('destroyTag', $tag) }}">
+                                                <a href="{{ route('editTag', $tag) }}" class="btn btn-default">
                                                     <i class="far fa-edit"></i>
                                                 </a>
                                                 @csrf
                                                 @method('delete')
-                                            <button type="submit" class="btn btn-default">
-                                                <i class="far fa-trash-alt"></i>
-                                            </button>
+                                                <button type="submit" class="btn btn-default">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
                                             </form>
                                         </div>
                                     </td>
@@ -54,7 +54,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{$tags->links()}}
+                        {{ $tags->links() }}
                     </div>
                 </div>
             </div>
