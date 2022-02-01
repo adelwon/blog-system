@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Post\PostController;
 use App\Http\Controllers\Admin\Tag\TagController;
+use App\Http\Controllers\Admin\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,6 +52,16 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin'],
         Route::get('/{tag}/edit', [TagController::class, 'edit'])->name('editTag');
         Route::put('/{tag}', [TagController::class, 'update'])->name('updateTag');
         Route::delete('/{tag}', [TagController::class, 'destroy'])->name('destroyTag');
+    });
+
+    Route::group(['namespace' => 'User', 'prefix' => 'users'], function () {
+        Route::get('/', [UserController::class, 'index'])->name('showUsers');
+        Route::get('/create', [UserController::class, 'create'])->name('createUser');
+        Route::post('/store', [UserController::class, 'store'])->name('storeUser');
+        Route::get('/{user}', [UserController::class, 'show'])->name('showUser');
+        Route::get('/{user}/edit', [UserController::class, 'edit'])->name('editUser');
+        Route::put('/{user}', [UserController::class, 'update'])->name('updateUser');
+        Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroyUser');
     });
 });
 
