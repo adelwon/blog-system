@@ -37,7 +37,6 @@ class UserUpdateRequest extends FormRequest
         return new UserDTO(
             $this->get('name'),
             $this->get('email'),
-            $this->get('password'),
             $this->get('role')
         );
     }
