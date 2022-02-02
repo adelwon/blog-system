@@ -7,8 +7,10 @@ namespace App\Http\Controllers\Admin\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\UserCreateRequest;
 use App\Http\Requests\Admin\User\UserUpdateRequest;
+use App\Jobs\StoreUserJob;
 use App\Mail\User\PasswordMail;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -34,14 +36,8 @@ class UserController extends Controller
     public function store(UserCreateRequest $userRequest): Redirector|Application|RedirectResponse
     {
         $userDto = $userRequest->getUserDTO();
-        $user = new User();
-        $user->name = $userDto->name;
-        $user->email = $userDto->email;
-        $password = Str::random(10);
-        $user->password = Hash::make($password);
-        $user->role = $userDto->role;
-        $user->save();
-        Mail::to($userDto->email)->send(new PasswordMail($password, $userDto->name));
+
+        StoreUserJob::dispatch($userDto);
 
         return redirect(route('showUsers'))->with('success', trans('messages.general.add'));
     }
