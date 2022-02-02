@@ -34,6 +34,21 @@
                 <a href="{{route('home')}}" class="nav-link">Home</a>
             </li>
         </ul>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <form action="{{ route( 'logout') }}" method="post">
+                    @csrf
+                <input type="submit" class="btn btn-outline-primary" value="Logout">
+                </form>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                </a>
+            </li>
+        </ul>
     </nav>
 
     @include('admin.includes.sidebar')
