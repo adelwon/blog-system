@@ -7,12 +7,15 @@ namespace App\Http\Controllers\Admin\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\UserCreateRequest;
 use App\Http\Requests\Admin\User\UserUpdateRequest;
+use App\Mail\User\PasswordMail;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -34,9 +37,11 @@ class UserController extends Controller
         $user = new User();
         $user->name = $userDto->name;
         $user->email = $userDto->email;
-        $user->password = Hash::make($userDto->password);
+        $password = Str::random(10);
+        $user->password = Hash::make($password);
         $user->role = $userDto->role;
         $user->save();
+        Mail::to($userDto->email)->send(new PasswordMail($password, $userDto->name));
 
         return redirect(route('showUsers'))->with('success', trans('messages.general.add'));
     }

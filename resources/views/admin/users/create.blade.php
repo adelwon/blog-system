@@ -48,14 +48,14 @@
                                 Please select a role.
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" name="password" id="password"
-                                   required>
-                            <div class="invalid-feedback">
-                                Please enter a valid password.
-                            </div>
-                        </div>
+{{--                        <div class="form-group">--}}
+{{--                            <label for="password">Password</label>--}}
+{{--                            <input type="password" class="form-control" name="password" id="password"--}}
+{{--                                   required>--}}
+{{--                            <div class="invalid-feedback">--}}
+{{--                                Please enter a valid password.--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>

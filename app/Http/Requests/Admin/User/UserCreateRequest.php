@@ -20,11 +20,6 @@ class UserCreateRequest extends FormRequest
                 "unique:users,email",
                 'string'
             ],
-            'password' => [
-                'required',
-                'string',
-                'min:6'
-            ],
             'role' => [
                 'required',
                 'integer'
@@ -37,8 +32,7 @@ class UserCreateRequest extends FormRequest
         return new UserDTO(
             $this->get('name'),
             $this->get('email'),
-            $this->get('password'),
-            $this->get('role'),
+            $this->get('role')
         );
     }
 }
