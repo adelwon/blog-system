@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Admin\Post;
+namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Post\PostCreateRequest;
@@ -10,7 +10,8 @@ use App\Http\Requests\Admin\Post\PostUpdateRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
-use Illuminate\Contracts\Foundation\Application;
+use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
@@ -19,24 +20,39 @@ class PostController extends Controller
 {
     public function index(): View
     {
-        return view('admin.posts.index',
+        $user = $this->getUser();
+
+        return view(
+            'account.posts.index',
             [
                 'category' => Category::all(),
-                'posts' => Post::query()->paginate(10)
+                'tags' => Tag::all(),
+                'posts' => Post::query()
+                    ->where('user_id', '=', $user->id)
+                    ->paginate(10)
             ]
         );
     }
 
     public function create(): View
     {
-        return view('admin.posts.create', ['categories' => Category::all(), 'tags' => Tag::all()]);
+        return view(
+            'account.posts.create',
+            [
+                'categories' => Category::all(), 'tags' => Tag::all()
+            ]
+        );
     }
 
-    public function store(PostCreateRequest $postRequest): Redirector|Application|RedirectResponse
+    public function store(PostCreateRequest $postRequest): Redirector|RedirectResponse
     {
+        $user = $this->getUser();
+
         $postDto = $postRequest->getPostDTO();
+
         $post = new Post();
         $post->title = $postDto->title;
+        $post->user_id = $user->id;
         $post->category_id = $postDto->categoryId;
         $post->short_description = $postDto->shortDescription;
         $post->text = $postDto->text;
@@ -47,28 +63,36 @@ class PostController extends Controller
 
         $post->tags()->attach($postDto->tags);
 
-        return redirect(route('showPosts'))->with('success', trans('messages.general.add'));
+        return redirect(route('showUserPosts'))->with('success', trans('messages.general.add'));
     }
 
-    public function show($slug)
+    public function show($slug): View
     {
-        $post = Post::where('path', $slug)->first();
-        return view('admin.posts.show', ['tags' => Tag::all()], compact('post'));
+        return view(
+            'account.posts.show',
+            [
+                'tags' => Tag::all(),
+                'post' => Post::query()->where('path', $slug)->firstOrFail()
+            ]
+        );
     }
 
     public function edit(Post $post): View
     {
-
-        return view('admin.posts.edit',
+        return view(
+            'account.posts.edit',
             [
                 'categories' => Category::all(),
                 'tags' => Tag::all()
-            ], compact('post'));
+            ],
+            compact('post')
+        );
     }
 
     public function update(Post $post, PostUpdateRequest $postRequest): RedirectResponse
     {
         $postDto = $postRequest->getPostDTO();
+
         $post->title = $postDto->title;
         $post->category_id = $postDto->categoryId;
         $post->short_description = $postDto->shortDescription;
@@ -78,13 +102,20 @@ class PostController extends Controller
         $post->path = $postDto->path;
         $post->save();
 
-        return redirect(route('showPosts'))->with('success', trans('messages.general.update'));
+        $post->tags()->sync($postDto->tags);
+
+        return redirect(route('showUserPosts'))->with('success', trans('messages.general.update'));
     }
 
     public function destroy(Post $post): RedirectResponse
     {
         $post->delete();
 
-        return redirect(route('showPosts'))->with('success', trans('messages.general.delete'));
+        return redirect(route('showUserPosts'))->with('success', trans('messages.general.delete'));
+    }
+
+    private function getUser(): Authenticatable
+    {
+        return auth()->user();
     }
 }

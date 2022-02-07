@@ -16,6 +16,7 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property int $category_id
+ * @property int $user_id
  * @property string $title
  * @property string $short_description
  * @property string $text
@@ -51,11 +52,11 @@ class Post extends Model
 
     protected $fillable = [
         'category_id',
+        'user_id',
         'title',
         'short_description',
         'text',
         'image',
-        'hidden',
         'path',
     ];
 

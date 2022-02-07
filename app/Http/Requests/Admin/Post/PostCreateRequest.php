@@ -14,16 +14,17 @@ class PostCreateRequest extends FormRequest
             'title' => [
                 'required',
                 "unique:posts,title",
-                'string'
+                'string',
+                'max:120'
             ],
             'short_description' => [
                 'required',
-                'string'
+                'string',
+                'max:120'
             ],
             'text' => [
                 'required',
-                'string',
-                'max:3000'
+                'string'
             ],
             'image' => [
                 'required',

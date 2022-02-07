@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Admin\Tag;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Tag\TagCreateRequest;
 use App\Http\Requests\Admin\Tag\TagUpdateRequest;
 use App\Models\Tag;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
@@ -27,9 +26,10 @@ class TagController extends Controller
         return view('admin.tags.create');
     }
 
-    public function store(TagCreateRequest $tagRequest): Redirector|Application|RedirectResponse
+    public function store(TagCreateRequest $tagRequest): Redirector|RedirectResponse
     {
         $tag = new Tag();
+
         $tagDto = $tagRequest->getTagDTO();
         $tag->name = $tagDto->name;
         $tag->hidden = $tagDto->hidden;
@@ -46,6 +46,7 @@ class TagController extends Controller
     public function update(Tag $tag, TagUpdateRequest $tagRequest): RedirectResponse
     {
         $tagDto = $tagRequest->getTagDTO();
+
         $tag->name = $tagDto->name;
         $tag->hidden = $tagDto->hidden;
         $tag->save();
@@ -55,7 +56,6 @@ class TagController extends Controller
 
     public function destroy(Tag $tag): RedirectResponse
     {
-
         $tag->delete();
 
         return redirect(route('showTags'))->with('success', trans('messages.general.delete'));

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -29,7 +28,15 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected string $redirectTo = '/account';
+
+    protected function redirectTo()
+    {
+        if ((int)auth()->user()->role === User::SUPER_ADMIN_ROLE) {
+            return '/admin';
+        }
+        return '/account';
+    }
 
     /**
      * Create a new controller instance.
@@ -47,7 +54,7 @@ class RegisterController extends Controller
      * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
@@ -60,15 +67,15 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param array $data
-     * @return \App\Models\User
+     * @return User
      */
-    protected function create(array $data)
+    protected function create(array $data): User
     {
-        return User::create([
+        return User::query()->create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => User::SUPER_ADMIN_ROLE
+            'role' => User::AUTHOR_ROLE
         ]);
     }
 }

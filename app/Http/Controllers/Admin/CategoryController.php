@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Admin\Category;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Category\CategoryCreateRequest;
 use App\Http\Requests\Admin\Category\CategoryUpdateRequest;
 use App\Models\Category;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
@@ -29,9 +28,10 @@ class CategoryController extends Controller
         return view('admin.categories.create', compact('categories'));
     }
 
-    public function store(CategoryCreateRequest $categoryRequest): Redirector|Application|RedirectResponse
+    public function store(CategoryCreateRequest $categoryRequest): Redirector|RedirectResponse
     {
         $categoryDto = $categoryRequest->getCategoryDTO();
+
         $category = new Category();
         $category->name = $categoryDto->name;
         $category->parent_id = $categoryDto->parentId;
@@ -55,6 +55,7 @@ class CategoryController extends Controller
     public function update(Category $category, CategoryUpdateRequest $categoryRequest): RedirectResponse
     {
         $categoryDto = $categoryRequest->getCategoryDTO();
+
         $category->name = $categoryDto->name;
         $category->parent_id = $categoryDto->parentId;
         $category->hidden = $categoryDto->hidden;

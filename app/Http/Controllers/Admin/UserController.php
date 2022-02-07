@@ -2,21 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Admin\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\UserCreateRequest;
 use App\Http\Requests\Admin\User\UserUpdateRequest;
 use App\Jobs\StoreUserJob;
-use App\Mail\User\PasswordMail;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -33,11 +29,11 @@ class UserController extends Controller
         return view('admin.users.create', ['roles' => User::getRoles()]);
     }
 
-    public function store(UserCreateRequest $userRequest): Redirector|Application|RedirectResponse
+    public function store(UserCreateRequest $userRequest): Redirector|RedirectResponse
     {
-        $userDto = $userRequest->getUserDTO();
+        $user = $userRequest->getUserDTO();
 
-        StoreUserJob::dispatch($userDto);
+        StoreUserJob::dispatch($user);
 
         return redirect(route('showUsers'))->with('success', trans('messages.general.add'));
     }
@@ -55,6 +51,7 @@ class UserController extends Controller
     public function update(User $user, UserUpdateRequest $userRequest): RedirectResponse
     {
         $userDto = $userRequest->getUserDTO();
+
         $user->name = $userDto->name;
         $user->email = $userDto->email;
         $user->role = $userDto->role;
@@ -65,7 +62,6 @@ class UserController extends Controller
 
     public function destroy(User $user): RedirectResponse
     {
-
         $user->delete();
 
         return redirect(route('showUsers'))->with('success', trans('messages.general.delete'));

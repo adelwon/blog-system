@@ -28,14 +28,12 @@ class PostUpdateRequest extends FormRequest
             'text' => [
                 'required',
                 'string',
-                'max:3000'
             ],
             'image' => [
                 'required',
                 'image',
                 'max:3072'
             ],
-            'hidden' => ['required', 'boolean'],
             'path' => [
                 'required',
                 Rule::unique('posts')->ignore($this->post),
