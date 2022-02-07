@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace' => 'Account', 'prefix' => 'account',  'middleware' => ['auth', 'verified']], function () {
+Route::group(['namespace' => 'Account', 'prefix' => 'account',  'middleware' => ['auth', 'author', 'verified']], function () {
 
     Route::get('/', [AccountIndexController::class, 'index'])->name('account');
     Route::get('/profile', [AccountIndexController::class, 'showProfile'])->name('showProfile');

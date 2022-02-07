@@ -35,7 +35,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $tag['name'] }}</td>
-                                    <td>{{ empty($tag['hidden']) ? 'No' : 'Yes' }}</td>
+                                    <td>{!! $tag->hidden === true ? '<span class="badge bg-success">published</span>' : '<span class="badge bg-danger">no published</span>'!!}</td>
                                     <td class="text-end">
                                         <div class="btn-group">
                                             <form method="post" action="{{ route('destroyTag', $tag) }}">

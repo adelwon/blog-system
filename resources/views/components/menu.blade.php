@@ -3,6 +3,7 @@
         <a class="nav-link" href="{{ route('blog') }}">Home</a>
     </li>
     @foreach($categories as $category)
+        @if($category['hidden'] === true)
         @if(count($category->children) > 0)
             <li class="nav-item active dropdown">
                 <a class="nav-link dropdown-toggle" id="pagesMenu" data-toggle="dropdown"
@@ -17,6 +18,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('showCategory', $category->path)}}">{{ $category->name }}</a>
             </li>
+        @endif
         @endif
     @endforeach
 </ul>

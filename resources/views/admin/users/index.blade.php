@@ -38,7 +38,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
-                                        <td>{{ $user->role }}</td>
+                                        <td>{{ $user->role === 0 ? 'Admin' : 'Author' }}</td>
                                         <td class="text-end">
                                             <div class="btn-group">
                                                 <form method="post" action="{{route('destroyUser', $user) }}">

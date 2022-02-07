@@ -16,7 +16,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Create category</h3>
                 </div>
-                <form action="{{route('storeCategory')}}" method="post" enctype="multipart/form-data"
+                <form action="{{ route('storeCategory') }}" method="post" enctype="multipart/form-data"
                       class="needs-validation" novalidate>
                     @csrf
                     <div class="card-body">
@@ -32,8 +32,8 @@
                             <select class="form-control form-select" name="parent_id">
                                 <option selected  value="">Select the main category</option>
                                 @foreach($categories as $category)
-                                    @if($category['hidden'] === true)
-                                    <option value="{{$category['id']}}">{{$category['name']}}</option>
+                                    @if($category->hidden === true)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endif
                                 @endforeach
                             </select>

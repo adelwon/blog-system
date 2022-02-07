@@ -10,6 +10,8 @@ use App\Http\Requests\Admin\Post\PostUpdateRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
@@ -23,8 +25,9 @@ class PostController extends Controller
             [
                 'category' => Category::all(),
                 'posts' => Post::query()->orderByDesc('created_at')->paginate(10),
+                'users'=> User::all()
             ]
-        );
+    );
     }
 
     public function create(): View
@@ -98,5 +101,10 @@ class PostController extends Controller
         $post->delete();
 
         return redirect(route('showPosts'))->with('success', trans('messages.general.delete'));
+    }
+
+    private function getUser(): Authenticatable
+    {
+        return auth()->user();
     }
 }

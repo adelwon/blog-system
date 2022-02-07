@@ -35,15 +35,15 @@
                             <tbody>
                             @foreach($categories as $category)
                                 <tr>
-                                    <td>{{$category['id']}}</td>
-                                    <td>{{$category['name']}}</td>
-                                    <td>{{$category['parent_id']}}</td>
-                                    <td>{{empty($category['hidden']) ? 'No' : 'Yes'}}</td>
-                                    <td>{{$category['path']}}</td>
+                                    <td>{{ $category->id }}</td>
+                                    <td>{{ $category->name }}</td>
+                                    <td>{{ $category->parent_id }}</td>
+                                    <td>{!! $category->hidden === true ? '<span class="badge bg-success">published</span>' : '<span class="badge bg-danger">no published</span>'!!}</td>
+                                    <td>{{ $category->path }}</td>
                                     <td>
                                         <div class="btn-group">
-                                            <form method="post" action="{{route('destroyCategory', $category)}}">
-                                                <a href="{{route('editCategory', $category)}}" class="btn btn-default">
+                                            <form method="post" action="{{ route('destroyCategory', $category) }}">
+                                                <a href="{{ route('editCategory', $category) }}" class="btn btn-default">
                                                     <i class="far fa-edit"></i>
                                                 </a>
                                                 @csrf
@@ -58,7 +58,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{$categories->links()}}
+                        {{ $categories->links() }}
                     </div>
                 </div>
             </div>

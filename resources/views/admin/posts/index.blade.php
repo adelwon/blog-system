@@ -35,16 +35,22 @@
                                 <tbody>
                                 @foreach($posts as $post)
                                     <tr>
-                                        <td>{{$post['title']}}</td>
-                                        <td>{{$post->category->name}}</td>
-                                        <td>{{empty($post['hidden']) ? 'No' : 'Yes'}}</td>
-                                        <td>Author P.B.</td>
+                                        <td>{{ $post['title'] }}</td>
+                                        <td>{{ $post->category->name }}</td>
+                                        <td>{!! $post->hidden === true ? '<span class="badge bg-success">published</span>' : '<span class="badge bg-danger">no published</span>'!!}</td>
+                                        <td>
+                                            @foreach($users as $user)
+                                                @if($user->id === $post->user_id)
+                                            {{ $user->name }}
+                                                @endif
+                                            @endforeach
+                                        </td>
                                         <td>
                                             <div class="btn-group">
-                                                <form method="post" action="{{route('destroyPost', $post)}}">
-                                                    <a href="{{route('showPost', $post->path)}}" class="btn btn-default">
+                                                <form method="post" action="{{ route('destroyPost', $post) }}">
+                                                    <a href="{{ route('showPost', $post->path) }}" class="btn btn-default">
                                                         <i class="far fa-eye"></i></a>
-                                                    <a href="{{route('editPost', $post)}}" class="btn btn-default">
+                                                    <a href="{{ route('editPost', $post) }}" class="btn btn-default">
                                                         <i class="far fa-edit"></i>
                                                     </a>
                                                     @csrf
@@ -59,7 +65,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            {{$posts->links()}}
+                            {{ $posts->links() }}
                         </div>
                     </div>
                 </div>

@@ -14,7 +14,7 @@
             @endif
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Edit category: "{{$category->name}}"</h3>
+                    <h3 class="card-title">Edit category: "{{ $category->name }}"</h3>
                 </div>
                 <form action="{{route('updateCategory', $category)}}" method="post" enctype="multipart/form-data"
                       class="needs-validation" novalidate>
@@ -37,7 +37,7 @@
                                         <label>Status</label>
                                         <select class="form-select form-control" name="hidden" required>
                                             <option selected
-                                                    value="{{$category->hidden === false ? 0 : 1}}">{{$category->hidden === true ? 'public' : 'not public'}}</option>
+                                                    value="{{ $category->hidden === false ? 0 : 1 }}">{{ $category->hidden === true ? 'public' : 'not public' }}</option>
                                             <option value="1">public</option>
                                             <option value="0">not public</option>
                                         </select>
@@ -56,7 +56,7 @@
                                         <option value="">Select the parent category</option>
                                         @foreach($categories as $item)
                                             <option
-                                                value="{{$item->id}}" {{$item->id===$category->parent_id?'selected':''}}>{{$item->name}}</option>
+                                                value="{{ $item->id }}" {{ $item->id===$category->parent_id?'selected':'' }}>{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -66,7 +66,7 @@
                                     <label>URL slug</label>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" id="path" name="path"
-                                               value="{{$category->path}}"
+                                               value="{{ $category->path }}"
                                                required>
                                         <button class="btn btn-warning" type="button" onClick="myFunction()">Convert
                                         </button>
@@ -77,7 +77,7 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <a href="{{route('showCategories')}}" class="btn btn-danger">Don't change</a>
+                        <a href="{{ route('showCategories') }}" class="btn btn-danger">Don't change</a>
                     </div>
                 </form>
             </div>
