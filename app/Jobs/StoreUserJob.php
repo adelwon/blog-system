@@ -46,7 +46,7 @@ class StoreUserJob implements ShouldQueue
         $user->role = $this->userDto->role;
         $user->save();
 
-        Mail::to($this->userDto->email)->send(new PasswordMail($password, $this->userDto->name));
-        event(new Registered($user));
+        Mail::to($user->email)->send(new PasswordMail($password, $user->email));
+        event(new Registered($this->userDto));
     }
 }

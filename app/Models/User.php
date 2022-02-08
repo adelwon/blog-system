@@ -94,7 +94,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Post::class);
     }
 
-    public function sendEmailVerificationNotification(): void
+    public function sendEmailVerificationNotification()
     {
         $this->notify(new SendVerifyWithQueueNotification());
     }

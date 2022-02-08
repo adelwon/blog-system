@@ -8,10 +8,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserCreateRequest;
 use App\Http\Requests\User\UserUpdateRequest;
 use App\Jobs\StoreUserJob;
+use App\Mail\User\PasswordMail;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -29,9 +34,9 @@ class UserController extends Controller
 
     public function store(UserCreateRequest $userRequest): Redirector|RedirectResponse
     {
-        $user = $userRequest->getUserDTO();
+        $userDto = $userRequest->getUserDTO();
 
-        StoreUserJob::dispatch($user);
+        StoreUserJob::dispatch($userDto);
 
         return redirect(route('showUsers'))->with('success', trans('messages.general.add'));
     }
