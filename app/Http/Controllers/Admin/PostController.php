@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Post\PostCreateRequest;
-use App\Http\Requests\Admin\Post\PostUpdateRequest;
+use App\Http\Requests\Post\PostCreateRequest;
+use App\Http\Requests\Post\PostUpdateRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
@@ -41,14 +41,17 @@ class PostController extends Controller
 
     public function store(PostCreateRequest $postRequest): Redirector|RedirectResponse
     {
+        $user = $this->getUser();
+
         $postDto = $postRequest->getPostDTO();
 
         $post = new Post();
         $post->title = $postDto->title;
+        $post->user_id = $user->id;
         $post->category_id = $postDto->categoryId;
         $post->short_description = $postDto->shortDescription;
         $post->text = $postDto->text;
-        $post->image = $postDto->image;
+        $post->image = $postRequest->file('image')->store('uploads', 'public');
         $post->hidden = $postDto->hidden;
         $post->path = $postDto->path;
         $post->save();
@@ -82,11 +85,14 @@ class PostController extends Controller
     {
         $postDto = $postRequest->getPostDTO();
 
+        if($postRequest->image)
+        {
+            $post->image = $postRequest->file('image')->store('uploads', 'public');
+        }
         $post->title = $postDto->title;
         $post->category_id = $postDto->categoryId;
         $post->short_description = $postDto->shortDescription;
         $post->text = $postDto->text;
-        $post->image = $postDto->image;
         $post->hidden = $postDto->hidden;
         $post->path = $postDto->path;
         $post->save();

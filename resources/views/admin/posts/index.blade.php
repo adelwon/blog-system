@@ -39,11 +39,7 @@
                                         <td>{{ $post->category->name }}</td>
                                         <td>{!! $post->hidden === true ? '<span class="badge bg-success">published</span>' : '<span class="badge bg-danger">no published</span>'!!}</td>
                                         <td>
-                                            @foreach($users as $user)
-                                                @if($user->id === $post->user_id)
-                                            {{ $user->name }}
-                                                @endif
-                                            @endforeach
+                                            {{ $post->user->name }}
                                         </td>
                                         <td>
                                             <div class="btn-group">

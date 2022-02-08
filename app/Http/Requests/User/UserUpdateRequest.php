@@ -1,23 +1,28 @@
 <?php
 
-namespace App\Http\Requests\Admin\User;
+namespace App\Http\Requests\User;
 
 use App\DTO\User\UserDTO;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UserCreateRequest extends FormRequest
+/**
+ * @property-read User user injected by eloquent implicit model binding
+ */
+class UserUpdateRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
             'name' => [
                 'required',
-                "unique:users,name",
+                Rule::unique('users')->ignore($this->user),
                 'string'
             ],
             'email' => [
                 'required',
-                "unique:users,email",
+                Rule::unique('users')->ignore($this->user),
                 'string'
             ],
             'role' => [

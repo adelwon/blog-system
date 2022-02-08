@@ -16,22 +16,20 @@ class IndexController extends Controller
         return view('blog.pages.index',
             [
                 'category' => Category::all(),
-                'posts' => Post::query()->orderByDesc('created_at')->paginate(6),
-                'tags' => Tag::all()
+                'posts' => Post::query()->where('hidden', true)->orderByDesc('created_at')->paginate(6),
+                'tags' => Tag::query()->where('hidden', true)->get()
             ]);
     }
 
     public function show($slug): View
     {
         $post = Post::query()->where('path', $slug)->first();
-        $user = User::where('id', $post['user_id'])->first();
-
 
         return view('blog.pages.post',
             [
                 'tags' => Tag::all(),
                 'posts' => Post::query()->paginate(3),
-            ], compact('post', 'user'));
+            ], compact('post'));
     }
 
     public function showCategoryPosts($slug): View

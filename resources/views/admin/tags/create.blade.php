@@ -16,7 +16,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Create tag</h3>
                 </div>
-                <form action="{{route('storeTag')}}" method="post" enctype="multipart/form-data"
+                <form action="{{ route('storeTag') }}" method="post" enctype="multipart/form-data"
                       class="needs-validation" novalidate>
                     @csrf
                     <div class="card-body">

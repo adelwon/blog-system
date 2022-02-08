@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Tag\TagCreateRequest;
-use App\Http\Requests\Admin\Tag\TagUpdateRequest;
+use App\Http\Requests\Tag\TagCreateRequest;
+use App\Http\Requests\Tag\TagUpdateRequest;
 use App\Models\Tag;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;

@@ -14,17 +14,17 @@
             @endif
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Edit post: "{{$post->title}}"</h3>
+                    <h3 class="card-title">Edit post: "{{ $post->title }}"</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('updateUserPost', $post)}}" method="post" enctype="multipart/form-data"
+                    <form action="{{ route('updateUserPost', $post) }}" method="post" enctype="multipart/form-data"
                           class="needs-validation" novalidate>
                         @csrf
                         @method('PUT')
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text" class="form-control box1" name="title" id="title"
-                                   value="{{$post->title}}"
+                            <input type="text" class="form-control" maxlength="120" name="title" id="title"
+                                   value="{{ $post->title }}"
                                    placeholder="Enter a title" required>
                             <div class="invalid-feedback">
                                 Please enter a title for the post.
@@ -33,15 +33,15 @@
                         <div class="form-group">
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" id="path" name="path"
-                                       value="{{$post->path}}" required>
+                                       value="{{ $post->path }}" required>
                                 <button class="btn btn-warning" type="button" onClick="myFunction()">Convert
                                 </button>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="short_description">Short description</label>
-                            <input type="text" class="form-control" name="short_description" id="short_description"
-                                   value="{{$post->short_description}}"
+                            <input type="text" class="form-control" maxlength="200" name="short_description" id="short_description"
+                                   value="{{ $post->short_description }}"
                                    placeholder="Enter a short description" required>
                             <div class="invalid-feedback">
                                 Please enter a short description for the post.
@@ -49,7 +49,7 @@
                         </div>
                         <div class="form-group">
                             <label for="text">Textarea</label>
-                            <textarea id="summernote" name="text" required>{{$post->text}}</textarea>
+                            <textarea id="summernote" name="text" required>{{ $post->text }}</textarea>
                             <div class="invalid-feedback">
                                 Please enter a description for the post.
                             </div>
@@ -96,22 +96,22 @@
                                 <div class="form-group">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="image" name="image"
-                                               value="{{$post->image}}"
-                                               accept=".jpg, .jpeg, .png" required>
+                                               value="{{ $post->image }}"
+                                               accept=".jpg, .jpeg, .png">
                                         <label class="custom-file-label" for="image">Choose a photo</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="col-auto d-none d-lg-block">
-                                    <img class="figure-img" height="250" src="{{asset('/storage/'.$post->image)}}"
+                                    <img class="figure-img" height="250" src="{{ asset('/storage/'.$post->image) }}"
                                          role="img" alt="Image for post">
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <a href="{{route('showUserPosts')}}" class="btn btn-danger">Don't change</a>
+                            <a href="{{ route('showUserPosts') }}" class="btn btn-danger">Don't change</a>
                         </div>
                     </form>
                 </div>

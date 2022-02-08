@@ -3,7 +3,7 @@
         <div class="row footer-widget-area">
             <div class="col-md-3">
                 <div class="py-3">
-                    <img src="{{asset('assets/images/logo-bs-white.svg')}}" alt="FOI">
+                    <img src="{{ asset('assets/images/logo-bs-white.svg') }}" alt="FOI">
                 </div>
             </div>
             <div class="col-md-3 mt-3 mt-md-0">
@@ -12,7 +12,7 @@
                         @foreach($categories as $category)
                             @if($category['hidden'] === true)
                         <li class="nav-item">
-                            <a href="{{route('showCategory', $category->path)}}" class="nav-link">{{ $category->name }}</a>
+                            <a href="{{ route('showCategory', $category->path) }}" class="nav-link">{{ $category->name }}</a>
                         </li>
                             @endif
                         @endforeach
@@ -37,10 +37,10 @@
                 </p>
                 <p>All rights reserved.</p>
                 <nav class="social-menu">
-                    <a href="#!"><img src="{{asset('assets/images/facebook.svg')}}" alt="facebook"></a>
-                    <a href="#!"><img src="{{asset('assets/images/instagram.svg')}}" alt="instagram"></a>
-                    <a href="#!"><img src="{{asset('assets/images/twitter.svg')}}" alt="twitter"></a>
-                    <a href="#!"><img src="{{asset('assets/images/youtube.svg')}}" alt="youtube"></a>
+                    <a href="#!"><img src="{{ asset('assets/images/facebook.svg') }}" alt="facebook"></a>
+                    <a href="#!"><img src="{{ asset('assets/images/instagram.svg') }}" alt="instagram"></a>
+                    <a href="#!"><img src="{{ asset('assets/images/twitter.svg') }}" alt="twitter"></a>
+                    <a href="#!"><img src="{{ asset('assets/images/youtube.svg') }}" alt="youtube"></a>
                 </nav>
             </div>
         </div>

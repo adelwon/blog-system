@@ -1,29 +1,24 @@
 <?php
 
-namespace App\Http\Requests\Admin\Category;
+namespace App\Http\Requests\Category;
 
 use App\DTO\Category\CategoryDTO;
-use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-/**
- * @property-read Category category injected by eloquent implicit model binding
- */
-class CategoryUpdateRequest extends FormRequest
+class CategoryCreateRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
             'name' => [
                 'required',
-                Rule::unique('categories')->ignore($this->category),
+                "unique:categories,name",
                 'string'
             ],
             'hidden' => ['required', 'boolean'],
             'path' => [
                 'required',
-                Rule::unique('categories')->ignore($this->category),
+                "unique:categories,path",
                 'string'
             ],
             'parent_id' => ['nullable', 'numeric']

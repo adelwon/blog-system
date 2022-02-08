@@ -11,7 +11,6 @@ class PostDTO
         public string $title,
         public string $shortDescription,
         public string $text,
-        public string $image,
         public bool   $hidden,
         public string $path,
         public array  $tags

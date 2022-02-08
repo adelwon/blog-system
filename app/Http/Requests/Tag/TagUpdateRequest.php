@@ -1,11 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Admin\Tag;
+namespace App\Http\Requests\Tag;
 
 use App\DTO\Tag\TagDTO;
+use App\Models\Tag;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TagCreateRequest extends FormRequest
+/**
+ * @property-read Tag tag injected by eloquent implicit model binding
+ */
+class TagUpdateRequest extends FormRequest
 {
     public function rules(): array
     {
@@ -22,7 +26,7 @@ class TagCreateRequest extends FormRequest
     {
         return new TagDTO(
             $this->get('name'),
-            (bool)$this->get('hidden'),
+            (bool)$this->get('hidden')
         );
     }
 }

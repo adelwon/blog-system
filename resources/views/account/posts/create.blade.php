@@ -40,7 +40,7 @@
                         </div>
                         <div class="form-group">
                             <label for="short_description">Short description</label>
-                            <input type="text" class="form-control" maxlength="120" name="short_description" id="short_description"
+                            <input type="text" class="form-control" maxlength="200" name="short_description" id="short_description"
                                    placeholder="Enter a short description" required>
                             <div class="invalid-feedback">
                                 Please enter a short description for the post.

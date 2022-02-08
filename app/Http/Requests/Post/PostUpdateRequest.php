@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\Post;
+namespace App\Http\Requests\Post;
 
 use App\DTO\Post\PostDTO;
 use App\Models\Post;
@@ -19,18 +19,19 @@ class PostUpdateRequest extends FormRequest
             'title' => [
                 'required',
                 Rule::unique('posts')->ignore($this->post),
-                'string'
+                'string',
+                'max:120'
             ],
             'short_description' => [
                 'required',
-                'string'
+                'string',
+                'max:200'
             ],
             'text' => [
                 'required',
                 'string',
             ],
             'image' => [
-                'required',
                 'image',
                 'max:3072'
             ],
@@ -49,7 +50,6 @@ class PostUpdateRequest extends FormRequest
             $this->get('title'),
             $this->get('short_description'),
             $this->get('text'),
-            $this->file('image')->store('uploads', 'public'),
             (bool)$this->get('hidden'),
             $this->get('path'),
             $this->get('tags')

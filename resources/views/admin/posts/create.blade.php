@@ -23,7 +23,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text" class="form-control" name="title" id="title"
+                            <input type="text" class="form-control" maxlength="120" name="title" id="title"
                                    placeholder="Enter a title" required>
                             <div class="invalid-feedback">
                                 Please enter a title for the post.
@@ -40,7 +40,7 @@
                         </div>
                         <div class="form-group">
                             <label for="short_description">Short description</label>
-                            <input type="text" class="form-control" name="short_description" id="short_description"
+                            <input type="text" class="form-control" maxlength="200" name="short_description" id="short_description"
                                    placeholder="Enter a short description" required>
                             <div class="invalid-feedback">
                                 Please enter a short description for the post.

@@ -33,7 +33,7 @@
                                     <p>{{$post->short_description}}</p>
                                 </blockquote>
                                 {!! $post->text !!}
-                                <h5>This article was written by <strong class="text-muted">{{ $user->name  }}</strong></h5>
+                                <h5>This article was written by <strong class="text-muted">{{ $post->user->name }}</strong></h5>
                                 @foreach($tags as $tag)
                                     @if(is_array( $post->tags->pluck('id')->toArray()) && in_array($tag->id, $post->tags->pluck('id')->toArray()))
                                         <a href="{{ route('showTag', $tag) }}" role="button" class="btn text-primary btn-sm">#{{ $tag->name }}</a>

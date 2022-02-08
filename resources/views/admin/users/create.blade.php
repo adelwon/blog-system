@@ -17,7 +17,7 @@
                     <h3 class="card-title">Create user</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('storeUser')}}" method="post" enctype="multipart/form-data"
+                    <form action="{{ route('storeUser') }}" method="post" enctype="multipart/form-data"
                           class="needs-validation" novalidate>
                         @csrf
                         <div class="form-group">
@@ -41,21 +41,13 @@
                             <select class="form-select form-control" name="role" required>
                                 <option value="" selected>Choose a password for the user</option>
                                 @foreach($roles as $id => $role)
-                                    <option value="{{$id}}">{{$role}}</option>
+                                    <option value="{{ $id }}">{{ $role }}</option>
                                 @endforeach
                             </select>
                             <div class="invalid-feedback">
                                 Please select a role.
                             </div>
                         </div>
-{{--                        <div class="form-group">--}}
-{{--                            <label for="password">Password</label>--}}
-{{--                            <input type="password" class="form-control" name="password" id="password"--}}
-{{--                                   required>--}}
-{{--                            <div class="invalid-feedback">--}}
-{{--                                Please enter a valid password.--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>

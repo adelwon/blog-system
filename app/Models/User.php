@@ -9,6 +9,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -49,7 +50,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public const SUPER_ADMIN_ROLE = 0;
     public const AUTHOR_ROLE = 1;
 
-    public static function getRoles()
+    public static function getRoles(): array
     {
         return [
             self::SUPER_ADMIN_ROLE => 'Admin',
@@ -88,7 +89,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function sendEmailVerificationNotification()
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function sendEmailVerificationNotification(): void
     {
         $this->notify(new SendVerifyWithQueueNotification());
     }

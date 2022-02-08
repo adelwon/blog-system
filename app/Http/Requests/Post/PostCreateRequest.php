@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\Post;
+namespace App\Http\Requests\Post;
 
 use App\DTO\Post\PostDTO;
 use Illuminate\Foundation\Http\FormRequest;
@@ -20,7 +20,7 @@ class PostCreateRequest extends FormRequest
             'short_description' => [
                 'required',
                 'string',
-                'max:120'
+                'max:200'
             ],
             'text' => [
                 'required',
@@ -47,7 +47,6 @@ class PostCreateRequest extends FormRequest
             $this->get('title'),
             $this->get('short_description'),
             $this->get('text'),
-            $this->file('image')->store('uploads', 'public'),
             (bool) $this->get('hidden'),
             $this->get('path'),
             $this->get('tags')

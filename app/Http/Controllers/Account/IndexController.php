@@ -16,7 +16,7 @@ class IndexController extends Controller
         return view('account.main.index');
     }
 
-    public function showProfile()
+    public function showProfile(): View
     {
         $user = $this->getUser();
 
