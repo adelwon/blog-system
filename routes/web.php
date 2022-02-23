@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace' => 'Account', 'prefix' => 'account',  'middleware' => ['auth', 'author', 'verified']], function () {
+Route::group(['namespace' => 'Account', 'prefix' => 'account', 'middleware' => ['auth', 'author', 'verified']], function () {
 
     Route::get('/', [AccountIndexController::class, 'index'])->name('account');
     Route::get('/profile', [AccountIndexController::class, 'showProfile'])->name('showProfile');
@@ -88,6 +88,7 @@ Route::group(['namespace' => 'Blog'], function () {
     Route::get('/categories/{slug}', [BlogIndexController::class, 'category'])->name('showCategory');
     Route::get('/categories/{slug}', [BlogIndexController::class, 'showCategoryPosts'])->name('showCategory');
     Route::get('/tags/{item}', [BlogIndexController::class, 'showTagPosts'])->name('showTag');
+    Route::get('/search', [BlogIndexController::class, 'search'])->name('search');
 });
 
 Auth::routes(['verify' => true]);
