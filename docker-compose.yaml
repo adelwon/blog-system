@@ -25,15 +25,19 @@ services:
       - app-network
 
   db:
-    image: postgres:12
+    image: mysql:5.7.22
+    restart: unless-stopped
+    tty: true
     ports:
-      - 5432:5432
+      - "3306:3306"
     environment:
-      - POSTGRES_USER=dev
-      - POSTGRES_PASSWORD=dev
-      - POSTGRES_DB=dev
+      MYSQL_DATABASE: blog
+      MYSQL_ROOT_PASSWORD: blog
+      SERVICE_TAGS: blog
+      SERVICE_NAME: mysql
     volumes:
-      - dbdata:/var/lib/postgresql/data
+      - dbdata:/var/lib/mysql/
+      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - app-network
 

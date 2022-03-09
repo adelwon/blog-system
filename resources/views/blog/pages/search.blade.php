@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-lg-10 offset-lg-1">
                     <section class="page-header">
-                        <h1>Search</h1>
+                        <h1>Search "{{ $search }}"</h1>
                     </section>
                     <section class="foi-page-section pt-0">
                         <div class="row">

@@ -71,6 +71,6 @@ class IndexController extends Controller
             ->orWhere(DB::raw('lower(text)'), 'LIKE', Str::lower("%{$search}%"))
             ->get();
 
-        return view('blog.pages.search', ['tags' => Tag::all()], compact('posts'));
+        return view('blog.pages.search', ['tags' => Tag::all()], compact('posts', 'search'));
     }
 }
