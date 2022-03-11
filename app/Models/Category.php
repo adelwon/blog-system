@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,7 +34,9 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Category whereParentId($value)
  * @method static Builder|Category wherePath($value)
  * @method static Builder|Category whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
+ * @property-read Collection|Category[] $children
+ * @property-read int|null $children_count
  */
 class Category extends Model
 {
