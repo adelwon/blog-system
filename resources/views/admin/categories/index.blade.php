@@ -24,6 +24,7 @@
                         <table class="table table-hover text-nowrap mb-2">
                             <thead>
                             <tr>
+                                <th>#</th>
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Parent ID</th>
@@ -35,6 +36,7 @@
                             <tbody>
                             @foreach($categories as $category)
                                 <tr>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $category->id }}</td>
                                     <td>{{ $category->name }}</td>
                                     <td>{{ $category->parent_id }}</td>

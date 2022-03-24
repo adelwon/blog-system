@@ -12,5 +12,8 @@ return [
     ],
     'tag' =>[
         'cannot_delete_with_posts' => 'It is not possible to delete the tag because it is attached to the post.',
+    ],
+    'user' =>[
+        'cannot_delete_with_posts' => 'The user cannot be deleted because he has posts. You can ban the user!:)',
     ]
 ];

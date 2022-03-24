@@ -78,6 +78,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('/{user}', [UserController::class, 'show'])->name('showUser');
         Route::get('/{user}/edit', [UserController::class, 'edit'])->name('editUser');
         Route::put('/{user}', [UserController::class, 'update'])->name('updateUser');
+        Route::put('/{user}', [UserController::class, 'userBan'])->name('userBan');
         Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroyUser');
     });
 });

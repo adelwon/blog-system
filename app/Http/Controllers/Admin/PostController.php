@@ -25,7 +25,6 @@ class PostController extends Controller
             [
                 'category' => Category::all(),
                 'posts' => Post::query()->orderByDesc('created_at')->paginate(10),
-                'users'=> User::all()
             ]
     );
     }

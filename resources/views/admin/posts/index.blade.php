@@ -25,6 +25,7 @@
                             <table class="table table-hover text-nowrap mb-2">
                                 <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Title</th>
                                     <th>Category</th>
                                     <th>Public</th>
@@ -35,11 +36,12 @@
                                 <tbody>
                                 @foreach($posts as $post)
                                     <tr>
-                                        <td>{{ $post['title'] }}</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $post->title}}</td>
                                         <td>{{ $post->category->name }}</td>
                                         <td>{!! $post->hidden === true ? '<span class="badge bg-success">published</span>' : '<span class="badge bg-danger">no published</span>'!!}</td>
                                         <td>
-                                            {{ $post->user->name }}
+                                            {{ $post->user->name  ?? 'None' }}
                                         </td>
                                         <td>
                                             <div class="btn-group">
