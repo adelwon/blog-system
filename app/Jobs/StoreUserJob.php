@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\DTO\User\UserDTO;
 use App\Mail\User\PasswordMail;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -18,16 +19,15 @@ class StoreUserJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $userDto;
+    private UserDTO $userDto;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($userDto)
+    public function __construct(UserDTO $userDto)
     {
-        //
         $this->userDto = $userDto;
     }
 
@@ -47,6 +47,6 @@ class StoreUserJob implements ShouldQueue
         $user->save();
 
         Mail::to($user->email)->send(new PasswordMail($password, $user->email));
-        event(new Registered($this->userDto));
+        event(new Registered($user));
     }
 }

@@ -110,7 +110,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                             <a href="{{ route('showUserPosts') }}" class="btn btn-danger">Don't change</a>
                         </div>
                     </form>

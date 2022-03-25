@@ -10,30 +10,22 @@
         </div>
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-header">POSTS</li>
                 <li class="nav-item">
                     <a href="{{route('showUserPosts')}}" class="nav-link">
                         <i class="far fa-newspaper nav-icon"></i>
                         <p>
-                            Posts
-                            <i class="fas fa-angle-left right"></i>
+                            List
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{route('showUserPosts')}}" class="nav-link">
-                                <i class="fas fa-list-ul nav-icon"></i>
-                                <p>List</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{route('createUserPost')}}" class="nav-link">
-                                <i class="fas fa-plus nav-icon"></i>
-                                <p>Create</p>
-                            </a>
-                        </li>
-                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('createUserPost')}}" class="nav-link">
+                        <i class="fas fa-plus nav-icon"></i>
+                        <p>
+                            Create
+                        </p>
+                    </a>
                 </li>
             </ul>
         </nav>
