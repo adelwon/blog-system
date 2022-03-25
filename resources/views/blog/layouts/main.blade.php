@@ -34,9 +34,15 @@
                                href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                     @else
-                        <li class="nav-item">
-                            <a class="btn btn-secondary" href="{{ route('account') }}">{{ __('Account') }}</a>
-                        </li>
+                        @if(auth()->user()->role == 1)
+                            <li class="nav-item">
+                                <a class="btn btn-secondary" href="{{ route('account') }}">{{ __('Account') }}</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="btn btn-secondary" href="{{ route('home') }}">{{ __('Admin Panel') }}</a>
+                            </li>
+                        @endif
                     @endif
                 </ul>
             </div>
