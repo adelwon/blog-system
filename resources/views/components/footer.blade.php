@@ -1,5 +1,16 @@
 <footer class="foi-footer text-white">
     <div class="container">
+        <div class="row footer-content">
+            <div class="col-xl-6 col-lg-7 col-md-8">
+                <h2 class="mb-0">Can't find your post? Use the search.</h2>
+            </div>
+            <div class="col-md-4 col-lg-5 col-xl-6 py-3 py-md-0 d-md-flex align-items-center justify-content-end">
+                    <form class="d-flex" action="{{ route('search') }}" method="GET">
+                            <input class="form-control" type="text" placeholder="Search" aria-label="Search"  name="search" required>
+                            <button class="btn btn-danger" type="submit">Search</button>
+                    </form>
+            </div>
+        </div>
         <div class="row footer-widget-area">
             <div class="col-md-3">
                 <div class="py-3">

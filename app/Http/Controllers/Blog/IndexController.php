@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
-use App\Models\User;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class IndexController extends Controller
 {
@@ -57,5 +59,18 @@ class IndexController extends Controller
             ],
             compact('posts', 'item')
         );
+    }
+
+    public function search(Request $request): View
+    {
+        $search = $request->input('search');
+
+        $posts = Post::query()
+            ->where(DB::raw('lower(title)'), 'LIKE', Str::lower("%{$search}%"))
+            ->orWhere(DB::raw('lower(short_description)'), 'LIKE', Str::lower("%{$search}%"))
+            ->orWhere(DB::raw('lower(text)'), 'LIKE', Str::lower("%{$search}%"))
+            ->get();
+
+        return view('blog.pages.search', ['tags' => Tag::all()], compact('posts', 'search'));
     }
 }

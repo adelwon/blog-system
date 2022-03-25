@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -45,7 +46,14 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Post whereText($value)
  * @method static Builder|Post whereTitle($value)
  * @method static Builder|Post whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
+ * @property Carbon|null $deleted_at
+ * @property-read User|null $user
+ * @method static \Illuminate\Database\Query\Builder|Post onlyTrashed()
+ * @method static Builder|Post whereDeletedAt($value)
+ * @method static Builder|Post whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|Post withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Post withoutTrashed()
  */
 class Post extends Model
 {

@@ -5,18 +5,14 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\UserBanRequest;
 use App\Http\Requests\User\UserCreateRequest;
 use App\Http\Requests\User\UserUpdateRequest;
 use App\Jobs\StoreUserJob;
-use App\Mail\User\PasswordMail;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -54,7 +50,6 @@ class UserController extends Controller
     public function update(User $user, UserUpdateRequest $userRequest): RedirectResponse
     {
         $userDto = $userRequest->getUserDTO();
-
         $user->name = $userDto->name;
         $user->email = $userDto->email;
         $user->role = $userDto->role;
@@ -63,8 +58,20 @@ class UserController extends Controller
         return redirect(route('showUsers'))->with('success', trans('messages.general.update'));
     }
 
+    public function userBan(User $user, UserBanRequest $request): Redirector|RedirectResponse
+    {
+        $user->blocked_date = $request->blocked_date;
+        $user->save();
+
+        return redirect(route('showUsers'))->with('success', trans('messages.general.update'));
+    }
+
     public function destroy(User $user): RedirectResponse
     {
+        if ($user->posts()->exists()) {
+            return redirect(route('showUsers'))->with('danger', trans('messages.user.cannot_delete_with_posts'));
+        }
+
         $user->delete();
 
         return redirect(route('showUsers'))->with('success', trans('messages.general.delete'));

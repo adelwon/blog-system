@@ -29,6 +29,7 @@
                                     <th>Full name</th>
                                     <th>E-mail</th>
                                     <th>Role</th>
+                                    <th>Ban</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -38,7 +39,8 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
-                                        <td>{{ $user->role === 0 ? 'Admin' : 'Author' }}</td>
+                                        <td>{!! $user->role === 0 ? '<span class="badge bg-success">Admin</span>' : '<span class="badge bg-primary">Author</span>' !!}</td>
+                                        <td>{{  $user->blocked_date ? $user->blocked_date->format('m/d/Y') : '-' }}</td>
                                         <td class="text-end">
                                             <div class="btn-group">
                                                 <form method="post" action="{{route('destroyUser', $user) }}">

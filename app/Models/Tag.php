@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,7 +31,12 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Tag whereId($value)
  * @method static Builder|Tag whereName($value)
  * @method static Builder|Tag whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
+ * @property Carbon|null $deleted_at
+ * @method static \Illuminate\Database\Query\Builder|Tag onlyTrashed()
+ * @method static Builder|Tag whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Tag withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Tag withoutTrashed()
  */
 class Tag extends Model
 {
